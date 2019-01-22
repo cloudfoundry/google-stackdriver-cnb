@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [buildpack]
-id = "org.cloudfoundry.googlestrackdriver"
+id = "org.cloudfoundry.googlestackdriver"
 name = "Cloud Foundry Google Stackdriver Buildpack"
 version = "1.0.0-BUILD-SNAPSHOT"
 
