@@ -18,7 +18,6 @@ package java
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 
 	"github.com/cloudfoundry/libcfbuildpack/build"
@@ -30,17 +29,13 @@ import (
 // Credentials represents the google-stackdriver-credentials helper application.
 type Credentials struct {
 	buildpack buildpack.Buildpack
-	layer     layers.Layer
+	layer     layers.HelperLayer
 }
 
 // Contributes makes the contribution to launch
 func (c Credentials) Contribute() error {
-	return c.layer.Contribute(marker{c.buildpack.Info}, func(layer layers.Layer) error {
-		if err := os.RemoveAll(layer.Root); err != nil {
-			return err
-		}
-
-		if err := helper.CopyFile(filepath.Join(c.buildpack.Root, "bin", "google-stackdriver-credentials"), filepath.Join(layer.Root, "bin", "google-stackdriver-credentials")); err != nil {
+	return c.layer.Contribute(func(artifact string, layer layers.HelperLayer) error {
+		if err := helper.CopyFile(artifact, filepath.Join(layer.Root, "bin", "google-stackdriver-credentials")); err != nil {
 			return err
 		}
 
@@ -59,13 +54,5 @@ func (c Credentials) String() string {
 
 // NewCredentials creates a new Credentials instance.
 func NewCredentials(build build.Build) Credentials {
-	return Credentials{build.Buildpack, build.Layers.Layer("google-stackdriver-credentials")}
-}
-
-type marker struct {
-	buildpack.Info
-}
-
-func (m marker) Identity() (string, string) {
-	return "Google Stackdriver Credentials", m.Version
+	return Credentials{build.Buildpack, build.Layers.HelperLayer("google-stackdriver-credentials", "Google Stackdriver Credentials")}
 }
