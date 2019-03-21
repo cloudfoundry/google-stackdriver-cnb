@@ -27,7 +27,7 @@ id      = "google-stackdriver-debugger-java"
 name    = "Google Stackdriver Debugger Java Agent"
 version = "2.22.0"
 uri     = "https://java-buildpack.cloudfoundry.org/google-stackdriver-debugger/bionic/x86_64/google-stackdriver-debugger-2.22.0.tar.gz"
-sha256  = "e0a4a36b05c1e47464520fae340b2eab6293745a09038f2745e16a1259768d55"
+sha256  = "98cd83216655d82591b216e7e9388d9710f75bbec1cff7199091fe0bc56fbf69"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
@@ -39,7 +39,7 @@ id      = "google-stackdriver-profiler-java"
 name    = "Google Stackdriver Profiler Java Agent"
 version = "0.1.0"
 uri     = "https://java-buildpack.cloudfoundry.org/google-stackdriver-profiler/bionic/x86_64/google-stackdriver-profiler-0.1.0.tar.gz"
-sha256  = "1a924c3ceed4b95b1dba6689bd3e5c723627f7bdd382be440568156bb822df7e"
+sha256  = "794e5da9a020dc356741c3181dedc84efbac62f7a7385004e4a5f1d6502a845d"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
