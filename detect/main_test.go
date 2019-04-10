@@ -20,8 +20,8 @@ import (
 	"testing"
 
 	"github.com/buildpack/libbuildpack/buildplan"
-	"github.com/cloudfoundry/google-stackdriver-buildpack/java"
-	"github.com/cloudfoundry/jvm-application-buildpack/jvmapplication"
+	"github.com/cloudfoundry/google-stackdriver-cnb/java"
+	"github.com/cloudfoundry/jvm-application-cnb/jvmapplication"
 	"github.com/cloudfoundry/libcfbuildpack/detect"
 	"github.com/cloudfoundry/libcfbuildpack/services"
 	"github.com/cloudfoundry/libcfbuildpack/test"
@@ -48,15 +48,15 @@ func TestDetect(t *testing.T) {
 		})
 
 		it("fails without jvm-application", func() {
-			f.AddService("google-stackdriver-debugger", services.Credentials{"PrivateKeyData"})
-			f.AddService("google-stackdriver-profiler", services.Credentials{"PrivateKeyData"})
+			f.AddService("google-stackdriver-debugger", services.Credentials{"PrivateKeyData": "test-value"})
+			f.AddService("google-stackdriver-profiler", services.Credentials{"PrivateKeyData": "test-value"})
 
 			g.Expect(d(f.Detect)).To(Equal(detect.FailStatusCode))
 		})
 
 		it("passes with debugger service and jvm-application", func() {
 			f.AddBuildPlan(jvmapplication.Dependency, buildplan.Dependency{})
-			f.AddService("google-stackdriver-debugger", services.Credentials{"PrivateKeyData"})
+			f.AddService("google-stackdriver-debugger", services.Credentials{"PrivateKeyData": "test-value"})
 
 			g.Expect(d(f.Detect)).To(Equal(detect.PassStatusCode))
 			g.Expect(f.Output).To(Equal(buildplan.BuildPlan{
@@ -66,7 +66,7 @@ func TestDetect(t *testing.T) {
 
 		it("passes with profiler service and jvm-application", func() {
 			f.AddBuildPlan(jvmapplication.Dependency, buildplan.Dependency{})
-			f.AddService("google-stackdriver-profiler", services.Credentials{"PrivateKeyData"})
+			f.AddService("google-stackdriver-profiler", services.Credentials{"PrivateKeyData": "test-value"})
 
 			g.Expect(d(f.Detect)).To(Equal(detect.PassStatusCode))
 			g.Expect(f.Output).To(Equal(buildplan.BuildPlan{

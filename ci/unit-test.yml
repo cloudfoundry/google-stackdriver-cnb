@@ -8,10 +8,10 @@ image_resource:
     tag: latest
 
 inputs:
-- name: google-stackdriver-buildpack
+- name: google-stackdriver-cnb
 
 caches:
 - path: go-module-cache
 
 run:
-  path: google-stackdriver-buildpack/ci/unit-test.sh
+  path: google-stackdriver-cnb/ci/unit-test.sh

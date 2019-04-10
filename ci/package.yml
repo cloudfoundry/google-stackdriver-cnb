@@ -8,7 +8,7 @@ image_resource:
     tag: latest
 
 inputs:
-- name: google-stackdriver-buildpack
+- name: google-stackdriver-cnb
 
 outputs:
 - name: artifactory
@@ -17,4 +17,4 @@ caches:
 - path: go-module-cache
 
 run:
-  path: google-stackdriver-buildpack/ci/package.sh
+  path: google-stackdriver-cnb/ci/package.sh

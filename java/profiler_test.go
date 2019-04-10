@@ -21,7 +21,7 @@ import (
 	"testing"
 
 	"github.com/buildpack/libbuildpack/buildplan"
-	"github.com/cloudfoundry/google-stackdriver-buildpack/java"
+	"github.com/cloudfoundry/google-stackdriver-cnb/java"
 	"github.com/cloudfoundry/libcfbuildpack/test"
 	. "github.com/onsi/gomega"
 	"github.com/sclevine/spec"

@@ -22,8 +22,8 @@ import (
 	"reflect"
 
 	"github.com/buildpack/libbuildpack/buildplan"
-	"github.com/cloudfoundry/google-stackdriver-buildpack/java"
-	"github.com/cloudfoundry/jvm-application-buildpack/jvmapplication"
+	"github.com/cloudfoundry/google-stackdriver-cnb/java"
+	"github.com/cloudfoundry/jvm-application-cnb/jvmapplication"
 	"github.com/cloudfoundry/libcfbuildpack/detect"
 )
 
