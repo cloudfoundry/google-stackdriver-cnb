@@ -17,7 +17,6 @@
 package java
 
 import (
-	"fmt"
 	"path/filepath"
 
 	"github.com/cloudfoundry/libcfbuildpack/build"
@@ -71,11 +70,6 @@ if [[ "${VERSION}" != "" ]]; then
 fi
 `, filepath.Join(layer.Root, "cdbg_java_agent.so"))
 	}, layers.Launch)
-}
-
-// String makes Debugger satisfy the Stringer interface.
-func (d Debugger) String() string {
-	return fmt.Sprintf("Debugger{ layer: %s }", d.layer)
 }
 
 // NewDebugger creates a new Debugger instance.

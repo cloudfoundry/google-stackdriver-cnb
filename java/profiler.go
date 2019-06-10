@@ -17,7 +17,6 @@
 package java
 
 import (
-	"fmt"
 	"path/filepath"
 
 	"github.com/cloudfoundry/libcfbuildpack/build"
@@ -74,10 +73,6 @@ export JAVA_OPTS="${JAVA_OPTS} ${AGENT}"
 
 `, filepath.Join(layer.Root, "profiler_java_agent.so"))
 	}, layers.Launch)
-}
-// String makes Profiler satisfy the Stringer interface.
-func (p Profiler) String() string {
-	return fmt.Sprintf("Profiler{ layer: %s }", p.layer)
 }
 
 // NewProfiler creates a new Profiler instance.

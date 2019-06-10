@@ -17,7 +17,6 @@
 package java
 
 import (
-	"fmt"
 	"path/filepath"
 
 	"github.com/cloudfoundry/libcfbuildpack/build"
@@ -45,11 +44,6 @@ google-stackdriver-credentials %[1]s
 export GOOGLE_APPLICATION_CREDENTIALS=%[1]s
 `, filepath.Join(layer.Root, "google-stackdriver-credentials.json"))
 	}, layers.Launch)
-}
-
-// String makes Credentials satisfy the Stringer interface.
-func (c Credentials) String() string {
-	return fmt.Sprintf("Credentials{ buildpack: %s, layer: %s }", c.buildpack, c.layer)
 }
 
 // NewCredentials creates a new Credentials instance.
