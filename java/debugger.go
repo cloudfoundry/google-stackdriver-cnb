@@ -35,7 +35,7 @@ type Debugger struct {
 // Contribute makes the contribution to launch.
 func (d Debugger) Contribute() error {
 	return d.layer.Contribute(func(artifact string, layer layers.DependencyLayer) error {
-		layer.Logger.SubsequentLine("Expanding to %s", layer.Root)
+		layer.Logger.Body("Expanding to %s", layer.Root)
 
 		if err := helper.ExtractTarGz(artifact, layer.Root, 0); err != nil {
 			return err

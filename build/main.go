@@ -41,7 +41,7 @@ func main() {
 }
 
 func b(build build.Build) (int, error) {
-	build.Logger.FirstLine(build.Logger.PrettyIdentity(build.Buildpack))
+	build.Logger.Title(build.Buildpack)
 
 	d, okd, err := java.NewDebugger(build)
 	if err != nil {

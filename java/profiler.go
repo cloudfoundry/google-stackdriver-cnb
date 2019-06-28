@@ -35,7 +35,7 @@ type Profiler struct {
 // Contribute makes the contribution to launch.
 func (p Profiler) Contribute() error {
 	return p.layer.Contribute(func(artifact string, layer layers.DependencyLayer) error {
-		layer.Logger.SubsequentLine("Expanding to %s", layer.Root)
+		layer.Logger.Body("Expanding to %s", layer.Root)
 
 		if err := helper.ExtractTarGz(artifact, layer.Root, 0); err != nil {
 			return err
