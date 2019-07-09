@@ -45,6 +45,7 @@ stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" 
 
   [[metadata.dependencies.licenses]]
   type = "Apache-2.0"
+  uri  = "https://github.com/GoogleCloudPlatform/cloud-profiler-java/blob/master/LICENSE"
 
 [metadata]
 pre_package = "ci/build.sh"
