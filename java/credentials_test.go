@@ -22,14 +22,14 @@ import (
 
 	"github.com/cloudfoundry/google-stackdriver-cnb/java"
 	"github.com/cloudfoundry/libcfbuildpack/test"
-	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega"
 	"github.com/sclevine/spec"
 )
 
 func TestCredentials(t *testing.T) {
 	spec.Run(t, "Credentials", func(t *testing.T, _ spec.G, it spec.S) {
 
-		g := NewGomegaWithT(t)
+		g := gomega.NewWithT(t)
 
 		it("contributes Google stackdriver credentials", func() {
 			f := test.NewBuildFactory(t)
@@ -37,11 +37,11 @@ func TestCredentials(t *testing.T) {
 
 			c := java.NewCredentials(f.Build)
 
-			g.Expect(c.Contribute()).To(Succeed())
+			g.Expect(c.Contribute()).To(gomega.Succeed())
 
 			layer := f.Build.Layers.Layer("google-stackdriver-credentials")
 			g.Expect(layer).To(test.HaveLayerMetadata(false, false, true))
-			g.Expect(filepath.Join(layer.Root, "bin", "google-stackdriver-credentials")).To(BeARegularFile())
+			g.Expect(filepath.Join(layer.Root, "bin", "google-stackdriver-credentials")).To(gomega.BeARegularFile())
 			g.Expect(layer).To(test.HaveProfile("google-stackdriver-credentials", `printf "Configuring Google Stackdriver Credentials\n"
 
 google-stackdriver-credentials %[1]s

@@ -21,7 +21,7 @@ import (
 	"testing"
 
 	"github.com/cloudfoundry/libcfbuildpack/test"
-	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega"
 	"github.com/sclevine/spec"
 	"github.com/sclevine/spec/report"
 )
@@ -29,7 +29,7 @@ import (
 func TestGoogleStackdriverCredentials(t *testing.T) {
 	spec.Run(t, "Google Stackdriver Credentials", func(t *testing.T, when spec.G, it spec.S) {
 
-		g := NewGomegaWithT(t)
+		g := gomega.NewWithT(t)
 
 		var root string
 
@@ -56,8 +56,8 @@ func TestGoogleStackdriverCredentials(t *testing.T) {
 
 				code, err := p(f)
 
-				g.Expect(err).NotTo(HaveOccurred())
-				g.Expect(code).To(Equal(0))
+				g.Expect(err).NotTo(gomega.HaveOccurred())
+				g.Expect(code).To(gomega.Equal(0))
 				g.Expect(f).To(test.HaveContent(`{"project_id":"test-project-id"}`))
 			})
 		})
@@ -81,8 +81,8 @@ func TestGoogleStackdriverCredentials(t *testing.T) {
 
 				code, err := p(f)
 
-				g.Expect(err).NotTo(HaveOccurred())
-				g.Expect(code).To(Equal(0))
+				g.Expect(err).NotTo(gomega.HaveOccurred())
+				g.Expect(code).To(gomega.Equal(0))
 				g.Expect(f).To(test.HaveContent(`{"project_id":"test-project-id"}`))
 			})
 		})
@@ -94,9 +94,9 @@ func TestGoogleStackdriverCredentials(t *testing.T) {
 
 				code, err := p(f)
 
-				g.Expect(err).NotTo(HaveOccurred())
-				g.Expect(code).To(Equal(0))
-				g.Expect(f).NotTo(BeAnExistingFile())
+				g.Expect(err).NotTo(gomega.HaveOccurred())
+				g.Expect(code).To(gomega.Equal(0))
+				g.Expect(f).NotTo(gomega.BeAnExistingFile())
 			})
 		})
 	}, spec.Report(report.Terminal{}))

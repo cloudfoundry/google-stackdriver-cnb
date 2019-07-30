@@ -23,14 +23,14 @@ import (
 	"github.com/buildpack/libbuildpack/buildplan"
 	"github.com/cloudfoundry/google-stackdriver-cnb/java"
 	"github.com/cloudfoundry/libcfbuildpack/test"
-	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega"
 	"github.com/sclevine/spec"
 )
 
 func TestProfiler(t *testing.T) {
 	spec.Run(t, "Profiler", func(t *testing.T, _ spec.G, it spec.S) {
 
-		g := NewGomegaWithT(t)
+		g := gomega.NewWithT(t)
 
 		var f *test.BuildFactory
 
@@ -43,14 +43,14 @@ func TestProfiler(t *testing.T) {
 			f.AddDependency(java.ProfilerDependency, filepath.Join("testdata", "stub-profiler.tar.gz"))
 
 			_, ok, err := java.NewProfiler(f.Build)
-			g.Expect(err).NotTo(HaveOccurred())
-			g.Expect(ok).To(BeTrue())
+			g.Expect(err).NotTo(gomega.HaveOccurred())
+			g.Expect(ok).To(gomega.BeTrue())
 		})
 
 		it("returns false if build plan does not exist", func() {
 			_, ok, err := java.NewProfiler(f.Build)
-			g.Expect(err).NotTo(HaveOccurred())
-			g.Expect(ok).To(BeFalse())
+			g.Expect(err).NotTo(gomega.HaveOccurred())
+			g.Expect(ok).To(gomega.BeFalse())
 		})
 
 		it("contributes agent", func() {
@@ -58,14 +58,14 @@ func TestProfiler(t *testing.T) {
 			f.AddDependency(java.ProfilerDependency, filepath.Join("testdata", "stub-profiler.tar.gz"))
 
 			d, ok, err := java.NewProfiler(f.Build)
-			g.Expect(err).NotTo(HaveOccurred())
-			g.Expect(ok).To(BeTrue())
+			g.Expect(err).NotTo(gomega.HaveOccurred())
+			g.Expect(ok).To(gomega.BeTrue())
 
-			g.Expect(d.Contribute()).To(Succeed())
+			g.Expect(d.Contribute()).To(gomega.Succeed())
 
 			layer := f.Build.Layers.Layer("google-stackdriver-profiler-java")
 			g.Expect(layer).To(test.HaveLayerMetadata(false, false, true))
-			g.Expect(filepath.Join(layer.Root, "profiler_java_agent.so")).To(BeARegularFile())
+			g.Expect(filepath.Join(layer.Root, "profiler_java_agent.so")).To(gomega.BeARegularFile())
 			g.Expect(layer).To(test.HaveProfile("google-stackdriver-profiler", `if [[ -z "${BPL_GOOGLE_STACKDRIVER_MODULE+x}" ]]; then
     MODULE="default-module"
 else
