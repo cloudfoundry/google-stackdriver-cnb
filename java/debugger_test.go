@@ -25,6 +25,7 @@ import (
 	"github.com/cloudfoundry/libcfbuildpack/test"
 	"github.com/onsi/gomega"
 	"github.com/sclevine/spec"
+	"github.com/sclevine/spec/report"
 )
 
 func TestDebugger(t *testing.T) {
@@ -94,5 +95,5 @@ fi
 `, filepath.Join(layer.Root, "cdbg_java_agent.so")))
 		})
 
-	})
+	}, spec.Report(report.Terminal{}))
 }

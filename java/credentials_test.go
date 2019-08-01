@@ -24,6 +24,7 @@ import (
 	"github.com/cloudfoundry/libcfbuildpack/test"
 	"github.com/onsi/gomega"
 	"github.com/sclevine/spec"
+	"github.com/sclevine/spec/report"
 )
 
 func TestCredentials(t *testing.T) {
@@ -49,5 +50,5 @@ export GOOGLE_APPLICATION_CREDENTIALS=%[1]s
 `, filepath.Join(layer.Root, "google-stackdriver-credentials.json")))
 		})
 
-	})
+	}, spec.Report(report.Terminal{}))
 }

@@ -25,6 +25,7 @@ import (
 	"github.com/cloudfoundry/libcfbuildpack/test"
 	"github.com/onsi/gomega"
 	"github.com/sclevine/spec"
+	"github.com/sclevine/spec/report"
 )
 
 func TestProfiler(t *testing.T) {
@@ -96,7 +97,5 @@ export JAVA_OPTS="${JAVA_OPTS} ${AGENT}"
 
 `, filepath.Join(layer.Root, "profiler_java_agent.so")))
 		})
-
-	})
+	}, spec.Report(report.Terminal{}))
 }
-
