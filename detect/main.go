@@ -19,7 +19,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"reflect"
 
 	"github.com/buildpack/libbuildpack/buildplan"
 	"github.com/cloudfoundry/google-stackdriver-cnb/java"
@@ -34,11 +33,6 @@ func main() {
 		os.Exit(101)
 	}
 
-	if err := detect.BuildPlan.Init(); err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "Failed to initialize Build Plan: %s\n", err)
-		os.Exit(101)
-	}
-
 	if code, err := d(detect); err != nil {
 		detect.Logger.Info(err.Error())
 		os.Exit(code)
@@ -48,21 +42,28 @@ func main() {
 }
 
 func d(detect detect.Detect) (int, error) {
-	bp := buildplan.BuildPlan{}
+	d := detect.Services.HasService("google-stackdriver-debugger", "PrivateKeyData")
+	p := detect.Services.HasService("google-stackdriver-profiler", "PrivateKeyData")
 
-	if _, ok := detect.BuildPlan[jvmapplication.Dependency]; ok {
-		if detect.Services.HasService("google-stackdriver-debugger", "PrivateKeyData") {
-			bp[java.DebuggerDependency] = detect.BuildPlan[java.DebuggerDependency]
-		}
-
-		if detect.Services.HasService("google-stackdriver-profiler", "PrivateKeyData") {
-			bp[java.ProfilerDependency] = detect.BuildPlan[java.ProfilerDependency]
-		}
-	}
-
-	if reflect.DeepEqual(bp, buildplan.BuildPlan{}) {
+	if !d && !p {
 		return detect.Fail(), nil
 	}
 
-	return detect.Pass(bp)
+	q := buildplan.Plan{
+		Requires: []buildplan.Required{
+			{Name: jvmapplication.Dependency},
+		},
+	}
+
+	if d {
+		q.Provides = append(q.Provides, buildplan.Provided{Name: java.DebuggerDependency})
+		q.Requires = append(q.Requires, buildplan.Required{Name: java.DebuggerDependency})
+	}
+
+	if p {
+		q.Provides = append(q.Provides, buildplan.Provided{Name: java.ProfilerDependency})
+		q.Requires = append(q.Requires, buildplan.Required{Name: java.ProfilerDependency})
+	}
+
+	return detect.Pass(q)
 }

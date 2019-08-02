@@ -20,7 +20,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/buildpack/libbuildpack/buildplan"
 	"github.com/cloudfoundry/google-stackdriver-cnb/java"
 	"github.com/cloudfoundry/libcfbuildpack/build"
 )
@@ -67,5 +66,5 @@ func b(build build.Build) (int, error) {
 		}
 	}
 
-	return build.Success(buildplan.BuildPlan{})
+	return build.Success()
 }

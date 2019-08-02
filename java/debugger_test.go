@@ -20,8 +20,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/buildpack/libbuildpack/buildplan"
 	"github.com/cloudfoundry/google-stackdriver-cnb/java"
+	"github.com/cloudfoundry/libcfbuildpack/buildpackplan"
 	"github.com/cloudfoundry/libcfbuildpack/test"
 	"github.com/onsi/gomega"
 	"github.com/sclevine/spec"
@@ -40,7 +40,7 @@ func TestDebugger(t *testing.T) {
 		})
 
 		it("returns true if build plan does exist", func() {
-			f.AddBuildPlan(java.DebuggerDependency, buildplan.Dependency{})
+			f.AddPlan(buildpackplan.Plan{Name: java.DebuggerDependency})
 			f.AddDependency(java.DebuggerDependency, filepath.Join("testdata", "stub-debugger.tar.gz"))
 
 			_, ok, err := java.NewDebugger(f.Build)
@@ -55,7 +55,7 @@ func TestDebugger(t *testing.T) {
 		})
 
 		it("contributes agent", func() {
-			f.AddBuildPlan(java.DebuggerDependency, buildplan.Dependency{})
+			f.AddPlan(buildpackplan.Plan{Name: java.DebuggerDependency})
 			f.AddDependency(java.DebuggerDependency, filepath.Join("testdata", "stub-debugger.tar.gz"))
 
 			d, ok, err := java.NewDebugger(f.Build)

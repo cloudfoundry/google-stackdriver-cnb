@@ -42,35 +42,60 @@ func TestDetect(t *testing.T) {
 		})
 
 		it("fails without service", func() {
-			f.AddBuildPlan(jvmapplication.Dependency, buildplan.Dependency{})
-
 			g.Expect(d(f.Detect)).To(gomega.Equal(detect.FailStatusCode))
 		})
 
-		it("fails without jvm-application", func() {
-			f.AddService("google-stackdriver-debugger", services.Credentials{"PrivateKeyData": "test-value"})
-			f.AddService("google-stackdriver-profiler", services.Credentials{"PrivateKeyData": "test-value"})
-
-			g.Expect(d(f.Detect)).To(gomega.Equal(detect.FailStatusCode))
-		})
-
-		it("passes with debugger service and jvm-application", func() {
-			f.AddBuildPlan(jvmapplication.Dependency, buildplan.Dependency{})
+		it("passes with debugger service", func() {
 			f.AddService("google-stackdriver-debugger", services.Credentials{"PrivateKeyData": "test-value"})
 
 			g.Expect(d(f.Detect)).To(gomega.Equal(detect.PassStatusCode))
-			g.Expect(f.Output).To(gomega.Equal(buildplan.BuildPlan{
-				java.DebuggerDependency: buildplan.Dependency{},
+			g.Expect(f.Plans).To(gomega.Equal(buildplan.Plans{
+				Plan: buildplan.Plan{
+					Provides: []buildplan.Provided{
+						{Name: java.DebuggerDependency},
+					},
+					Requires: []buildplan.Required{
+						{Name: jvmapplication.Dependency},
+						{Name: java.DebuggerDependency},
+					},
+				},
 			}))
 		})
 
-		it("passes with profiler service and jvm-application", func() {
-			f.AddBuildPlan(jvmapplication.Dependency, buildplan.Dependency{})
+		it("passes with profiler service", func() {
 			f.AddService("google-stackdriver-profiler", services.Credentials{"PrivateKeyData": "test-value"})
 
 			g.Expect(d(f.Detect)).To(gomega.Equal(detect.PassStatusCode))
-			g.Expect(f.Output).To(gomega.Equal(buildplan.BuildPlan{
-				java.ProfilerDependency: buildplan.Dependency{},
+			g.Expect(f.Plans).To(gomega.Equal(buildplan.Plans{
+				Plan: buildplan.Plan{
+					Provides: []buildplan.Provided{
+						{Name: java.ProfilerDependency},
+					},
+					Requires: []buildplan.Required{
+						{Name: jvmapplication.Dependency},
+						{Name: java.ProfilerDependency},
+					},
+				},
+			}))
+		})
+
+		it("passes with debugger and profiler services", func() {
+			f.AddService("google-stackdriver-debugger", services.Credentials{"PrivateKeyData": "test-value"})
+			f.AddService("google-stackdriver-profiler", services.Credentials{"PrivateKeyData": "test-value"})
+
+			g.Expect(d(f.Detect)).To(gomega.Equal(detect.PassStatusCode))
+			g.Expect(f.Plans).To(gomega.Equal(buildplan.Plans{
+				Plan: buildplan.Plan{
+					Provides: []buildplan.Provided{
+						{Name: java.DebuggerDependency},
+						{Name: java.ProfilerDependency},
+					},
+					Requires: []buildplan.Required{
+						{Name: jvmapplication.Dependency},
+						{Name: java.DebuggerDependency},
+						{Name: java.ProfilerDependency},
+					},
+				},
 			}))
 		})
 	}, spec.Report(report.Terminal{}))
