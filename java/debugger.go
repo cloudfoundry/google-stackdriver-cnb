@@ -74,8 +74,10 @@ fi
 
 // NewDebugger creates a new Debugger instance.
 func NewDebugger(build build.Build) (Debugger, bool, error) {
-	bp, ok := build.BuildPlan[DebuggerDependency]
-	if !ok {
+	p, ok, err := build.Plans.GetShallowMerged(DebuggerDependency)
+	if err != nil {
+		return Debugger{}, false, err
+	} else if !ok {
 		return Debugger{}, false, nil
 	}
 
@@ -84,7 +86,7 @@ func NewDebugger(build build.Build) (Debugger, bool, error) {
 		return Debugger{}, false, err
 	}
 
-	dep, err := deps.Best(DebuggerDependency, bp.Version, build.Stack)
+	dep, err := deps.Best(DebuggerDependency, p.Version, build.Stack)
 	if err != nil {
 		return Debugger{}, false, err
 	}

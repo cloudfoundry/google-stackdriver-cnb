@@ -77,8 +77,10 @@ export JAVA_OPTS="${JAVA_OPTS} ${AGENT}"
 
 // NewProfiler creates a new Profiler instance.
 func NewProfiler(build build.Build) (Profiler, bool, error) {
-	bp, ok := build.BuildPlan[ProfilerDependency]
-	if !ok {
+	p, ok, err := build.Plans.GetShallowMerged(ProfilerDependency)
+	if err != nil {
+		return Profiler{}, false, err
+	} else if !ok {
 		return Profiler{}, false, nil
 	}
 
@@ -87,7 +89,7 @@ func NewProfiler(build build.Build) (Profiler, bool, error) {
 		return Profiler{}, false, err
 	}
 
-	dep, err := deps.Best(ProfilerDependency, bp.Version, build.Stack)
+	dep, err := deps.Best(ProfilerDependency, p.Version, build.Stack)
 	if err != nil {
 		return Profiler{}, false, err
 	}
