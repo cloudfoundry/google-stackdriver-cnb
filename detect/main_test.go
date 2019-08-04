@@ -49,15 +49,13 @@ func TestDetect(t *testing.T) {
 			f.AddService("google-stackdriver-debugger", services.Credentials{"PrivateKeyData": "test-value"})
 
 			g.Expect(d(f.Detect)).To(gomega.Equal(detect.PassStatusCode))
-			g.Expect(f.Plans).To(gomega.Equal(buildplan.Plans{
-				Plan: buildplan.Plan{
-					Provides: []buildplan.Provided{
-						{Name: java.DebuggerDependency},
-					},
-					Requires: []buildplan.Required{
-						{Name: jvmapplication.Dependency},
-						{Name: java.DebuggerDependency},
-					},
+			g.Expect(f.Plans).To(test.HavePlans(buildplan.Plan{
+				Provides: []buildplan.Provided{
+					{Name: java.DebuggerDependency},
+				},
+				Requires: []buildplan.Required{
+					{Name: jvmapplication.Dependency},
+					{Name: java.DebuggerDependency},
 				},
 			}))
 		})
@@ -66,15 +64,13 @@ func TestDetect(t *testing.T) {
 			f.AddService("google-stackdriver-profiler", services.Credentials{"PrivateKeyData": "test-value"})
 
 			g.Expect(d(f.Detect)).To(gomega.Equal(detect.PassStatusCode))
-			g.Expect(f.Plans).To(gomega.Equal(buildplan.Plans{
-				Plan: buildplan.Plan{
-					Provides: []buildplan.Provided{
-						{Name: java.ProfilerDependency},
-					},
-					Requires: []buildplan.Required{
-						{Name: jvmapplication.Dependency},
-						{Name: java.ProfilerDependency},
-					},
+			g.Expect(f.Plans).To(test.HavePlans(buildplan.Plan{
+				Provides: []buildplan.Provided{
+					{Name: java.ProfilerDependency},
+				},
+				Requires: []buildplan.Required{
+					{Name: jvmapplication.Dependency},
+					{Name: java.ProfilerDependency},
 				},
 			}))
 		})
@@ -84,17 +80,15 @@ func TestDetect(t *testing.T) {
 			f.AddService("google-stackdriver-profiler", services.Credentials{"PrivateKeyData": "test-value"})
 
 			g.Expect(d(f.Detect)).To(gomega.Equal(detect.PassStatusCode))
-			g.Expect(f.Plans).To(gomega.Equal(buildplan.Plans{
-				Plan: buildplan.Plan{
-					Provides: []buildplan.Provided{
-						{Name: java.DebuggerDependency},
-						{Name: java.ProfilerDependency},
-					},
-					Requires: []buildplan.Required{
-						{Name: jvmapplication.Dependency},
-						{Name: java.DebuggerDependency},
-						{Name: java.ProfilerDependency},
-					},
+			g.Expect(f.Plans).To(test.HavePlans(buildplan.Plan{
+				Provides: []buildplan.Provided{
+					{Name: java.DebuggerDependency},
+					{Name: java.ProfilerDependency},
+				},
+				Requires: []buildplan.Required{
+					{Name: jvmapplication.Dependency},
+					{Name: java.DebuggerDependency},
+					{Name: java.ProfilerDependency},
 				},
 			}))
 		})
