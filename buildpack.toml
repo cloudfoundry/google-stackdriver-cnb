@@ -30,7 +30,7 @@ id      = "google-stackdriver-debugger-java"
 name    = "Google Stackdriver Debugger Java Agent"
 version = "2.24.0"
 uri     = "https://java-buildpack.cloudfoundry.org/google-stackdriver-debugger/bionic/x86_64/google-stackdriver-debugger-2.24.0.tar.gz"
-sha256  = "73b4d4f69838b75b93311c30c635b3da5e0887a0903fca1e5ea2e7fa0f8cec68"
+sha256  = "2ebf86004abaeb886bc20e12243bc973f5f73def72608e07c8e3be1d392862df"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
