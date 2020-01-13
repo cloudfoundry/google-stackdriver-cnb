@@ -35,6 +35,9 @@ type Debugger struct {
 // Contribute makes the contribution to launch.
 func (d Debugger) Contribute() error {
 	return d.layer.Contribute(func(artifact string, layer layers.DependencyLayer) error {
+		layer.Logger.LaunchConfiguration("Set $BPL_GOOGLE_STACKDRIVER_MODULE to configure", "default-module")
+		layer.Logger.LaunchConfiguration("Set $BPL_GOOGLE_STACKDRIVER_VERSION to configure", "empty")
+
 		layer.Logger.Body("Expanding to %s", layer.Root)
 
 		if err := helper.ExtractTarGz(artifact, layer.Root, 0); err != nil {

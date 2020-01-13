@@ -35,6 +35,9 @@ type Profiler struct {
 // Contribute makes the contribution to launch.
 func (p Profiler) Contribute() error {
 	return p.layer.Contribute(func(artifact string, layer layers.DependencyLayer) error {
+		layer.Logger.LaunchConfiguration("Set $BPL_GOOGLE_STACKDRIVER_MODULE to configure", "default-module")
+		layer.Logger.LaunchConfiguration("Set $BPL_GOOGLE_STACKDRIVER_VERSION to configure", "empty")
+
 		layer.Logger.Body("Expanding to %s", layer.Root)
 
 		if err := helper.ExtractTarGz(artifact, layer.Root, 0); err != nil {
