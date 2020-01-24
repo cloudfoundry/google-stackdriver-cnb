@@ -19,9 +19,9 @@ package java
 import (
 	"path/filepath"
 
-	"github.com/cloudfoundry/libcfbuildpack/build"
-	"github.com/cloudfoundry/libcfbuildpack/helper"
-	"github.com/cloudfoundry/libcfbuildpack/layers"
+	"github.com/cloudfoundry/libcfbuildpack/v2/build"
+	"github.com/cloudfoundry/libcfbuildpack/v2/helper"
+	"github.com/cloudfoundry/libcfbuildpack/v2/layers"
 )
 
 // ProfilerDependency indicates that a JVM application should be run with Google Stackdriver Profiler enabled.
