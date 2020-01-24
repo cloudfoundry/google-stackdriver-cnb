@@ -21,7 +21,6 @@ import (
 
 	"github.com/buildpack/libbuildpack/buildplan"
 	"github.com/cloudfoundry/google-stackdriver-cnb/java"
-	"github.com/cloudfoundry/jvm-application-cnb/jvmapplication"
 	"github.com/cloudfoundry/libcfbuildpack/detect"
 	"github.com/cloudfoundry/libcfbuildpack/services"
 	"github.com/cloudfoundry/libcfbuildpack/test"
@@ -54,7 +53,7 @@ func TestDetect(t *testing.T) {
 					{Name: java.DebuggerDependency},
 				},
 				Requires: []buildplan.Required{
-					{Name: jvmapplication.Dependency},
+					{Name: "jvm-application"},
 					{Name: java.DebuggerDependency},
 				},
 			}))
@@ -69,7 +68,7 @@ func TestDetect(t *testing.T) {
 					{Name: java.ProfilerDependency},
 				},
 				Requires: []buildplan.Required{
-					{Name: jvmapplication.Dependency},
+					{Name: "jvm-application"},
 					{Name: java.ProfilerDependency},
 				},
 			}))
@@ -86,7 +85,7 @@ func TestDetect(t *testing.T) {
 					{Name: java.ProfilerDependency},
 				},
 				Requires: []buildplan.Required{
-					{Name: jvmapplication.Dependency},
+					{Name: "jvm-application"},
 					{Name: java.DebuggerDependency},
 					{Name: java.ProfilerDependency},
 				},

@@ -22,7 +22,6 @@ import (
 
 	"github.com/buildpack/libbuildpack/buildplan"
 	"github.com/cloudfoundry/google-stackdriver-cnb/java"
-	"github.com/cloudfoundry/jvm-application-cnb/jvmapplication"
 	"github.com/cloudfoundry/libcfbuildpack/detect"
 )
 
@@ -51,7 +50,7 @@ func d(detect detect.Detect) (int, error) {
 
 	q := buildplan.Plan{
 		Requires: []buildplan.Required{
-			{Name: jvmapplication.Dependency},
+			{Name: "jvm-application"},
 		},
 	}
 
